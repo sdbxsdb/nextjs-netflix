@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Banner from '../components/banner/banner'
+import NavBar from '../components/nav/navbar'
 
 export default function Home() {
   return (
@@ -10,14 +11,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="">
-        <h1 className='font-bebas text-3xl'>Netflix</h1>
-      </div>
 
-      <Banner title='A movie name' subtitle='A movie subtitle' imgUrl='/static/avengers.jpg'  />
+      <NavBar username='sdbxsdb'/>
+
+      <Banner title='A movie name' subtitle='A movie subtitle' imgUrl='/static/avengerslandscape.jpg'  />
 
 {/* 
-      <NavBar/>
+      
       <Card/> */}
 
       
