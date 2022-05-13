@@ -1,4 +1,4 @@
-import { React, useState, useRef, useEffect } from "react";
+import { React, useState } from "react";
 import styles from "../nav/navBar.module.css";
 import Link from "next/link";
 import Image from "next/image";
@@ -26,20 +26,12 @@ const NavBar = (props) => {
     setShowDropdown(!showDropdown);
   };
 
-  const dropdown = useRef(null);
+  const handleCloseDropdownOnWindowClick = (e) => {
+    e.preventDefault();
+    setShowDropdown(false);
+  };
 
-  useEffect(() => {
-    if(!showDropdown) return;
-    function handleClick(e) {
-      if (dropdown.current && !dropdown.current(e.target)) {
-        setShowDropdown(false);
-        consol.log('hllllllo');
-      }
-    }
-    window.addEventListener("click", handleClick);
-    // clean up
-    return () => window.removeEventListener("click", handleClick);
-  }, [showDropdown]);
+
 
 
   return (
@@ -73,16 +65,21 @@ const NavBar = (props) => {
             </button>
 
             {showDropdown && (
-              <div className={styles.navDropdown}>
-                <Link href="/login">
-                  <div>
+              <>
+                
+                <div className={styles.navDropdown}>
+                  <Link href="/login">
                     <div>
-                      <p className={styles.linkName}>Sign Out</p>
+                      <div>
+                        <p className={styles.linkName}>Sign Out</p>
+                      </div>
+                      <div className={styles.lineWrapper}></div>
                     </div>
-                    <div className={styles.lineWrapper}></div>
-                  </div>
-                </Link>
-              </div>
+                  </Link>
+                </div>
+
+                <div className="w-screen h-screen left-0 top-[70px] fixed " onClick={handleCloseDropdownOnWindowClick}></div>
+              </>
             )}
           </div>
         </nav>
