@@ -35,50 +35,43 @@ const NavBar = (props) => {
 
 
   return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <Link className={styles.logoLink} href="/">
-          <div className={styles.logoWrapper}>
+    <div className='fixed top-0 z-50 w-full bg-gradient-to-b from-black'>
+      <div className='flex p-5 px-12'>
+        <Link className='flex items-center mb-4 text-base font-medium' href="/">
+          <div className='w-32 cursor-pointer'>
             <Image
-              src={"/static/netflixLogo.png"}
-              alt="logo"
+              src={"/static/netflixLogo.svg"}
+              alt="Netflix logo"
               width="300px"
               height="100%"
             />
           </div>
         </Link>
 
-        <ul className={styles.navItems}>
-          <li className={styles.navItem} onClick={handleOnClickHome}>
+        <ul className='flex flex-row items-center w-6/12 ml-12 text-base leading-5'>
+          <li className='mr-3 text-base font-semibold cursor-pointer' onClick={handleOnClickHome}>
             Home
           </li>
-          <li className={styles.navItem2} onClick={handleOnClickMyList}>
+          <li className='cursor-pointer' onClick={handleOnClickMyList}>
             My List
           </li>
         </ul>
 
-        <nav className={styles.navContainer}>
+        <nav className='flex items-start ml-auto'>
           <div>
-            <button className={styles.usernameBtn} onClick={handleShowDropdown}>
-              <p className={styles.username}>{username} &#9660; </p>
-              {/*Expand Icon goes here*/}
+            <button className='flex items-center overflow-hidden' onClick={handleShowDropdown}>
+              <p className={styles.username}>{username}</p>
+              <Image src='/static/expand_more.svg' alt='expand more' width='32px' height='32px'></Image>
             </button>
 
             {showDropdown && (
               <>
-                
-                <div className={styles.navDropdown}>
-                  <Link href="/login">
-                    <div>
-                      <div>
-                        <p className={styles.linkName}>Sign Out</p>
-                      </div>
-                      <div className={styles.lineWrapper}></div>
-                    </div>
-                  </Link>
-                </div>
-
-                <div className="w-screen h-screen left-0 top-[70px] fixed " onClick={handleCloseDropdownOnWindowClick}></div>
+                <Link href='/login'>
+                  <div className='absolute ml-auto mt-2 flex items-center justify-center rounded cursor-pointer bg-black p-2 border border-transparent hover:border-[#666666]'>
+                      Sign Out
+                  </div>
+                </Link>
+                <div className="w-screen h-screen left-0 top-[100px] fixed " onClick={handleCloseDropdownOnWindowClick}></div>
               </>
             )}
           </div>

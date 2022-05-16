@@ -1,6 +1,7 @@
-import Head from 'next/head';
-import Banner from '../components/banner/banner'
-import NavBar from '../components/nav/navbar'
+import Head from "next/head";
+import Banner from "../components/banner/banner";
+import NavBar from "../components/nav/navbar";
+import Card from "../components/card/card";
 
 export default function Home() {
   return (
@@ -11,16 +12,20 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <NavBar username="sdbxsdb" />
 
-      <NavBar username='sdbxsdb'/>
+      <div>
+        <Banner
+          title="A movie name"
+          subtitle="A movie subtitle"
+          imgUrl="/static/avengerslandscape.jpg"
+        />
+        <div className="w-full absolute bottom-24 h-52 bg-gradient-to-t from-black40 via-black40 "></div>
+      </div>
 
-      <Banner title='A movie name' subtitle='A movie subtitle' imgUrl='/static/avengerslandscape.jpg'  />
-
-{/* 
-      
-      <Card/> */}
-
-      
+      <Card imgUrl="/static/avengers.jpg" size="portrait" />
+      <Card imgUrl="/static/avengers.jpg" size="square" />
+      <Card imgUrl="/static/avengers.jpg" size="landscape" />
     </div>
-  )
+  );
 }
