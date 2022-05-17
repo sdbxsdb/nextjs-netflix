@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./banner.module.css";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const Banner = (props) => {
   const { title, subtitle, imgUrl } = props;
@@ -28,7 +29,10 @@ const Banner = (props) => {
           </h6>
 
           <div className="flex flex-row w-full">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.2 }}
+              onHoverStart={(e) => {}}
+              onHoverEnd={(e) => {}}
               className="flex items-center justify-center w-32 pt-2 pb-2 pl-5 pr-5 mt-5 text-black rounded-lg shadow-lg bg-white10"
               onClick={handleOnPlay}
             >
@@ -41,7 +45,7 @@ const Banner = (props) => {
               <span className="pl-1 text-lg font-semibold leading-7 text-center text-gray-900">
                 Play
               </span>
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
@@ -56,7 +60,6 @@ const Banner = (props) => {
           position: "",
         }}
       ></div>
-      
     </div>
   );
 };

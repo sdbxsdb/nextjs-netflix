@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const Card = (props) => {
-  const { imgUrl = '/static/NetflixN.png', size = 'square' } = props;
+  const { imgUrl = "/static/NetflixN.png", size = "square" } = props;
 
   const classMap = {
     portrait: "w-[218px] relative min-w-[218px] h-[434px] min-h-[434px]",
@@ -12,15 +13,17 @@ const Card = (props) => {
 
   const [imgSrc, setImgSrc] = useState(imgUrl);
   const handleError = (e) => {
-    console.log('IMG ERROR', e);
-    setImgSrc('/static/NetflixN.png');
-  }
-
+    console.log("IMG ERROR", e);
+    setImgSrc("/static/NetflixN.png");
+  };
 
   return (
     <div className="mr-4 cursor-pointer">
       Card
-      <div className={classMap[size]}>
+      <motion.div
+        whileHover={{ scale: 1.2 }}
+        className={classMap[size]}
+      >
         <Image
           src={imgSrc}
           alt="Picture title"
@@ -28,7 +31,7 @@ const Card = (props) => {
           onError={handleError}
           className="top-0 right-0 bottom-0 left-0 rounded-md object-cover object-center block max-w-full"
         ></Image>
-      </div>
+      </motion.div>
     </div>
   );
 };
