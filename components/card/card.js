@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import cls from 'classnames'
 
 const Card = (props) => {
   const { imgUrl = "/static/NetflixN.png", size = "square" } = props;
@@ -22,7 +23,7 @@ const Card = (props) => {
       Card
       <motion.div
         whileHover={{ scale: 1.2 }}
-        className={classMap[size]}
+        className={cls('relative block hover:z-50', classMap[size])}
       >
         <Image
           src={imgSrc}
