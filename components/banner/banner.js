@@ -10,9 +10,9 @@ const Banner = (props) => {
   };
 
   return (
-    <div className="w-full relative h-[80vh] mb-12 border">
+    <div className="w-full relative h-[80vh] mb-12">
       <div className="absolute z-10 w-full h-full">
-        <div className="flex flex-col justify-start h-full pl-16 pr-16 mt-24">
+        <div className="flex flex-col justify-center h-full pl-16 pr-16 py-24 bg-gradient-to-r via-transparent from-black">
           <div className="flex gap-x-2">
             <p className="text-6xl font-extrabold leading-none text-red10 text-shadow">
               N
@@ -30,7 +30,7 @@ const Banner = (props) => {
 
           <div className="flex flex-row w-full">
             <motion.button
-              whileHover={{ scale: 1.2 }}
+              whileHover={{ scale: 1.05 }}
               onHoverStart={(e) => {}}
               onHoverEnd={(e) => {}}
               className="flex items-center justify-center w-32 pt-2 pb-2 pl-5 pr-5 mt-5 text-black rounded-lg shadow-lg bg-white10"

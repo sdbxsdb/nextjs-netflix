@@ -35,7 +35,7 @@ const NavBar = (props) => {
 
 
   return (
-    <div className='fixed top-0 z-50 w-full bg-gradient-to-b from-black'>
+    <div className='fixed top-0 z-100 w-full bg-gradient-to-b from-black'>
       <div className='flex p-5 px-12'>
         <Link className='flex items-center mb-4 text-base font-medium' href="/">
           <div className='w-32 cursor-pointer'>

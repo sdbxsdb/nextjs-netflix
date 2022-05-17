@@ -1,18 +1,20 @@
-import React from 'react'
-import Card from '../card/card';
+import React from "react";
+import Card from "../card/card";
 
 const SectionCards = (props) => {
-
-  const {title} = props;
+  const { title, videos = [], size, } = props;
+  console.log({ videos });
 
   return (
-    <section className='px-4 text-blue20 bg-black50'>
-      <h2 className='text-white10 font-semibold text-3xl'>{title}</h2>
-      <div className='flex pt-6 pb-6 mt-6 mr-3 border overflow-x-scroll overflow-y-hidden'>
-        <Card title="test" size='portrait'/>
+    <section className=" text-blue20 bg-black50">
+      <h2 className="text-white10 font-semibold text-3xl px-12">{title}</h2>
+      <div className="flex pt-6 pb-6 px-12 mt-6 mr-3 overflow-x-scroll w-full overflow-y-hidden">
+        {videos.map((video, index) => {
+          return <Card key={index} imgUrl={video.imgUrl} id={index} size={size} title={video.title} />;
+        })}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default SectionCards
+export default SectionCards;

@@ -1,10 +1,17 @@
 import Head from "next/head";
 import Banner from "../components/banner/banner";
 import NavBar from "../components/nav/navbar";
-import Card from "../components/card/card";
 import SectionCards from "../components/card/section-cards";
+import { getVideos } from "../lib/videos";
 
-export default function Home() {
+export async function getServerSideProps() {
+  const disneyVideos = getVideos();
+  return { props: JSON.parse(JSON.stringify({ disneyVideos })), };
+  };
+
+export default function Home({disneyVideos}) {
+  
+
   return (
     <div>
       <Head>
@@ -21,11 +28,11 @@ export default function Home() {
           subtitle="A movie subtitle"
           imgUrl="/static/avengerslandscape.jpg"
         />
-        <div className="w-full absolute bottom-36 h-24 bg-gradient-to-t from-black40 via-black40 "></div>
       </div>
 
-      <SectionCards title='Disney'/>
-
+      <SectionCards title="Disney" videos={disneyVideos} size="portrait" />
+      <SectionCards title="Comedy" videos={disneyVideos} size="landscape" />
+      <SectionCards title="Learning" videos={disneyVideos} size="square" />
 
     </div>
   );

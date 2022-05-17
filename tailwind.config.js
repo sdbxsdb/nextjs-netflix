@@ -37,6 +37,9 @@ module.exports = {
         'blue20': 'rgb(55, 65, 81)',
 
       },
+      zIndex: {
+        '100': '100',
+      },
     },
   },
   plugins: [],
