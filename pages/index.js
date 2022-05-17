@@ -2,6 +2,7 @@ import Head from "next/head";
 import Banner from "../components/banner/banner";
 import NavBar from "../components/nav/navbar";
 import Card from "../components/card/card";
+import SectionCards from "../components/card/section-cards";
 
 export default function Home() {
   return (
@@ -14,18 +15,18 @@ export default function Home() {
 
       <NavBar username="sdbxsdb" />
 
-      <div>
+      <div className="mb-16">
         <Banner
           title="A movie name"
           subtitle="A movie subtitle"
           imgUrl="/static/avengerslandscape.jpg"
         />
-        <div className="w-full absolute bottom-24 h-52 bg-gradient-to-t from-black40 via-black40 "></div>
+        <div className="w-full absolute bottom-36 h-24 bg-gradient-to-t from-black40 via-black40 "></div>
       </div>
 
-      <Card imgUrl="/static/avengers.jpg" size="portrait" />
-      <Card imgUrl="/static/avengers.jpg" size="square" />
-      <Card imgUrl="/static/avengers.jpg" size="landscape" />
+      <SectionCards title='Disney'/>
+
+
     </div>
   );
 }

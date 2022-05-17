@@ -20,7 +20,6 @@ const Card = (props) => {
 
   return (
     <div className="mr-4 cursor-pointer">
-      Card
       <motion.div
         whileHover={{ scale: 1.2 }}
         className={cls('relative block hover:z-50', classMap[size])}
