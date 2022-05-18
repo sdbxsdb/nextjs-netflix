@@ -31,8 +31,6 @@ const Banner = (props) => {
           <div className="flex flex-row w-full">
             <motion.button
               whileHover={{ scale: 1.05 }}
-              onHoverStart={(e) => {}}
-              onHoverEnd={(e) => {}}
               className="flex items-center justify-center w-32 pt-2 pb-2 pl-5 pr-5 mt-5 text-black rounded-lg shadow-lg bg-white10"
               onClick={handleOnPlay}
             >
@@ -55,9 +53,8 @@ const Banner = (props) => {
           backgroundImage: `url(${imgUrl})`,
           backgroundSize: "cover",
           backgroundPosition: "50% 50%",
-          width: "",
+          width: "100%",
           height: "100%",
-          position: "",
         }}
       ></div>
     </div>
