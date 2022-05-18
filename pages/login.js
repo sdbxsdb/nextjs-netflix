@@ -2,31 +2,40 @@ import Head from "next/head";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [showEmailError, setShowEmailError] = useState("");
+  const router = useRouter()
 
-  const [email, setEmail] = useState('');
-  const [showEmailError, setShowEmailError] = useState('');
 
   const handleOnChangeEmail = (e) => {
     const email = e.target.value;
     setEmail(email);
-    console.log({email});
-  }
+    setShowEmailError("");
+    // console.log({ email });
+  };
 
   const handleLoginWithEmail = (e) => {
+    
     e.preventDefault();
-    console.log('LOGIN WITH EMAIL');
-    if (email.includes('@' && '.')) {
-      // route to dashboard
-      setShowEmailError('')
-      console.log('EMAIL IS VALID');
+    if (email.length > 3 && email.includes("@" && ".")) {
+        console.log('email is valid but not in DB');
+      if (email === "sam@sam.com") {
+        // route to dashboard
+        router.push('/')
+        setShowEmailError("");
+        console.log("EMAIL IS VALID and in DB - Route to dashboard");
+      } else {
+        setShowEmailError("Email not found");
+      }
     } else {
-      // show user message
-      console.log('EMAIL IS INVALID');
-      setShowEmailError('Email address is invalid');
+      // show email error message
+      console.log("EMAIL IS INVALID");
+      setShowEmailError("Email address is invalid");
     }
-  }
+  };
 
   return (
     <>
@@ -56,8 +65,7 @@ const Login = () => {
       >
         <div className="p-12 bg-black bg-opacity-70 rounded flex flex-col">
           <h1 className="text-3xl mb-8">Sign In</h1>
-          <div className='flex flex-col items-center'>
-
+          <div className="flex flex-col items-center">
             <input
               type="text"
               className="p-2 rounded text-black mb-2"
@@ -65,8 +73,7 @@ const Login = () => {
               onChange={handleOnChangeEmail}
             />
 
-              <small className="text-red20 mb-2">{showEmailError}</small>
-            
+            <small className="text-red20 mb-2">{showEmailError}</small>
           </div>
           <motion.button
             onClick={handleLoginWithEmail}
