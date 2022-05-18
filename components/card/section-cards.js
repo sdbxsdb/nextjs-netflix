@@ -3,7 +3,7 @@ import Card from "../card/card";
 
 const SectionCards = (props) => {
   const { title, videos = [], size, } = props;
-  console.log({ videos });
+  // console.log({ videos });
 
   return (
     <section className="text-blue20 bg-black50">
