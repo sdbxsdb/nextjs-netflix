@@ -26,7 +26,7 @@ const Card = (props) => {
         whileHover={{ scale: 1.1 }}
         className={cls("relative block hover:z-40 group", classMap[size])}
       >
-        <div className='absolute flex items-end z-50 bg-gradient-to-t via-black/[0.3] from-black h-full w-full group-hover:opacity-0 transition-all duration-200 ease-in-out overflow-hidden'>
+        <div className='absolute flex items-end z-50 bg-gradient-to-t via-black/[0.3] from-black h-full w-full group-hover:opacity-0 transition-all duration-200 ease-in-out overflow-hidden p-2'>
           <p className='text-white10'>{title}</p>
         </div>
         <Image

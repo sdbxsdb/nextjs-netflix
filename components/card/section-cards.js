@@ -6,9 +6,9 @@ const SectionCards = (props) => {
   console.log({ videos });
 
   return (
-    <section className=" text-blue20 bg-black50">
+    <section className="text-blue20 bg-black50">
       <h2 className="text-white10 font-semibold text-3xl px-12">{title}</h2>
-      <div className="flex pt-6 pb-6 px-12 mt-6 mr-3 overflow-x-scroll w-full overflow-y-hidden">
+      <div className="flex pb-12 pt-4 px-12 mr-3 overflow-x-scroll w-full overflow-y-hidden">
         {videos.map((video, index) => {
           return <Card key={index} imgUrl={video.imgUrl} id={index} size={size} title={video.title} />;
         })}

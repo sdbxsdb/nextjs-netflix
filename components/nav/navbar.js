@@ -32,6 +32,7 @@ const NavBar = (props) => {
   };
 
 
+  
 
 
   return (
@@ -48,13 +49,16 @@ const NavBar = (props) => {
           </div>
         </Link>
 
-        <ul className='flex flex-row items-center w-6/12 ml-12 text-base leading-5'>
+        <ul className='flex flex-row items-center w-6/12 ml-12 gap-x-8 text-base leading-5'>
           <li className='mr-3 text-base font-semibold cursor-pointer' onClick={handleOnClickHome}>
             Home
           </li>
-          <li className='cursor-pointer' onClick={handleOnClickMyList}>
+          <li className='cursor-pointer min-w-max' onClick={handleOnClickMyList}>
             My List
           </li>
+          {/* <li>
+            <input id='search-bar' type="search" className='rounded p-2 focus:outline-none text-black10' placeholder="Search"/>
+          </li> */}
         </ul>
 
         <nav className='flex items-start ml-auto'>
