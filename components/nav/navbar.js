@@ -1,15 +1,32 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import styles from "../nav/navBar.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { magic } from '../../lib/magic-client';
 
-const NavBar = (props) => {
-  const { username } = props;
-
+const NavBar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
-
+  const [username, setUsername] = useState('...');
   const router = useRouter();
+
+  useEffect( ()  => {
+    async function fetchMetaData() {
+    try {
+      const { email } = await magic.user.getMetadata();
+      if (email) {
+        setUsername(email);
+      }
+      console.log({email})
+    } catch (error) {
+      console.error('Error getting user metadata', error)
+    }
+    }
+    fetchMetaData();
+  }, []);
+
+
+
 
   const handleOnClickHome = (e) => {
     e.preventDefault();
@@ -32,7 +49,6 @@ const NavBar = (props) => {
   };
 
 
-  
 
 
   return (
@@ -69,14 +85,14 @@ const NavBar = (props) => {
             </button>
 
             {showDropdown && (
-              <>
+              <div className='relative'>
                 <Link href='/login'>
-                  <div className='absolute ml-auto mt-2 flex items-center justify-center rounded cursor-pointer bg-black p-2 border border-transparent hover:border-[#666666]'>
+                  <div className='absolute right-0 ml-auto mt-2 flex items-center justify-center rounded cursor-pointer bg-black p-2 border border-transparent hover:border-[#666666]'>
                       Sign Out
                   </div>
                 </Link>
                 <div className="w-screen h-screen left-0 top-[100px] fixed " onClick={handleCloseDropdownOnWindowClick}></div>
-              </>
+              </div>
             )}
           </div>
         </nav>

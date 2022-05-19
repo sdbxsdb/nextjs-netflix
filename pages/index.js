@@ -4,6 +4,7 @@ import NavBar from "../components/nav/navbar";
 import SectionCards from "../components/card/section-cards";
 import { getPopularVideos, getVideos } from "../lib/videos";
 
+
 export async function getServerSideProps() {
   const disneyVideos = await getVideos(
     'disney trailer'
@@ -15,11 +16,21 @@ export async function getServerSideProps() {
     'coding'
   );
   const popularVideos = await getPopularVideos();
+
+
+        // Assumes a user is already logged in
+    try {
+      const { email, publicAddress } = await m.user.getMetadata();
+    } catch {
+      // Handle errors if required!
+    }
   
   return { props: JSON.parse(JSON.stringify({ disneyVideos, comedyVideos, codingVideos, popularVideos})), };
   };
 
 export default function Home({disneyVideos, comedyVideos, codingVideos, popularVideos}) {
+
+
 
   return (
     <div>
@@ -29,7 +40,7 @@ export default function Home({disneyVideos, comedyVideos, codingVideos, popularV
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <NavBar username="sdbxsdb" />
+      <NavBar/>
 
       <div className="mb-16">
         <Banner

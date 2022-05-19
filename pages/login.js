@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { magic } from "../lib/magic-client";
 
@@ -10,6 +10,20 @@ const Login = () => {
   const [showEmailError, setShowEmailError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const handleComplete = () => {
+      setIsLoading(false);
+    };
+    router.events.on('routeChangeComplete', handleComplete);
+    router.events.on('routeChangeError', handleComplete);
+
+    return () => {
+      router.events.off('routeChangeComplete', handleComplete);
+      router.events.off('routeChangeError', handleComplete);
+
+    }
+  }, [router]);
 
   const handleOnChangeEmail = (e) => {
     const email = e.target.value;
@@ -20,11 +34,11 @@ const Login = () => {
 
   const handleLoginWithEmail = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
     if (email.length > 3 && email.includes("@" && ".")) {
       if (email) {
         // log in a user by their email
         try {
+          setIsLoading(true);
           const DiDToken = await magic.auth.loginWithMagicLink({ email });
           console.log({ DiDToken });
           if (DiDToken) {
@@ -35,7 +49,6 @@ const Login = () => {
           setIsLoading(false);
           console.error("error logging in", error);
         }
-        setIsLoading(false);
         setShowEmailError("");
         console.log("EMAIL IS VALID and in DB - Route to dashboard");
       } else {
