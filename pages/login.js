@@ -21,13 +21,15 @@ const Login = () => {
     e.preventDefault();
     if (email.length > 3 && email.includes("@" && ".")) {
       if (email) {
-        // route to dashboard
-        // router.push('/')
 
         // log in a user by their email
         try {
           const DiDToken = await magic.auth.loginWithMagicLink({ email });
           console.log({ DiDToken });
+          if (DiDToken) {
+            // route to dashboard
+            router.push("/");
+          }
         } catch (error) {
           console.error("error logging in", error);
         }
