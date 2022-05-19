@@ -3,11 +3,8 @@ import Banner from "../components/banner/banner";
 import NavBar from "../components/nav/navbar";
 import SectionCards from "../components/card/section-cards";
 import { getPopularVideos, getVideos } from "../lib/videos";
-import { magic } from '../lib/magic-client';
-import { useEffect, useState } from 'react';
-import { useRouter } from "next/router";
-import Image from 'next/image';
- 
+
+
 
 
 
@@ -31,27 +28,6 @@ export async function getServerSideProps() {
 
 export default function Home({disneyVideos, comedyVideos, codingVideos, popularVideos}) {
 
-  const router = useRouter();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect( ()  => {
-    async function fetchEmailData() {
-      try {
-        const isEmail = await magic.user.isLoggedIn();
-        if (!isEmail) { 
-          router.push("/login");
-          console.log('isLoggedIn');
-          setIsLoggedIn(false);
-        } else {
-          setIsLoggedIn(true);
-        }
-      } catch (error) {
-        // Handle errors if required!
-        console.error('Error getting email data', error);
-      }
-    }
-    fetchEmailData();
-  }, []);
 
 
   return (
@@ -62,19 +38,17 @@ export default function Home({disneyVideos, comedyVideos, codingVideos, popularV
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      { !isLoggedIn && (
-        <div className="flex items-center justify-center h-screen w-screen animate-pulse">
+
+        {/* <div className="flex items-center justify-center h-screen w-screen animate-puse">
           <Image
               src={"/static/netflixLogo.svg"}
               alt="Netflix logo"
               width="300px"
               height="100%"
             />
-        </div>
-      )}
+        </div> */}
 
-      { isLoggedIn && (
-      <>
+
       <NavBar/>
 
       <div className="mb-16">
@@ -89,9 +63,7 @@ export default function Home({disneyVideos, comedyVideos, codingVideos, popularV
       <SectionCards title="Comedy" videos={comedyVideos} size="landscape" />
       <SectionCards title="Learning" videos={codingVideos} size="square" />
       <SectionCards title="Popular" videos={popularVideos} size="landscape" />
-      </>
 
-      )}
     </div>
   );
 }
