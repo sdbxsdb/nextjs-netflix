@@ -3,12 +3,12 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { magic } from "../lib/magic-client";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [showEmailError, setShowEmailError] = useState("");
-  const router = useRouter()
-
+  const router = useRouter();
 
   const handleOnChangeEmail = (e) => {
     const email = e.target.value;
@@ -17,14 +17,21 @@ const Login = () => {
     // console.log({ email });
   };
 
-  const handleLoginWithEmail = (e) => {
-    
+  const handleLoginWithEmail = async (e) => {
     e.preventDefault();
     if (email.length > 3 && email.includes("@" && ".")) {
-        console.log('email is valid but not in DB');
-      if (email === "sam@sam.com") {
+      if (email) {
         // route to dashboard
-        router.push('/')
+        // router.push('/')
+
+        // log in a user by their email
+        try {
+          const DiDToken = await magic.auth.loginWithMagicLink({ email });
+          console.log({ DiDToken });
+        } catch (error) {
+          console.error("error logging in", error);
+        }
+
         setShowEmailError("");
         console.log("EMAIL IS VALID and in DB - Route to dashboard");
       } else {

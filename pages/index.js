@@ -3,7 +3,6 @@ import Banner from "../components/banner/banner";
 import NavBar from "../components/nav/navbar";
 import SectionCards from "../components/card/section-cards";
 import { getPopularVideos, getVideos } from "../lib/videos";
-import {magic} from '../lib/magic-client'
 
 export async function getServerSideProps() {
   const disneyVideos = await getVideos(
@@ -22,7 +21,6 @@ export async function getServerSideProps() {
 
 export default function Home({disneyVideos, comedyVideos, codingVideos, popularVideos}) {
 
-  console.log({magic});
   return (
     <div>
       <Head>
