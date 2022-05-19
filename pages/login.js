@@ -8,6 +8,7 @@ import { magic } from "../lib/magic-client";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [showEmailError, setShowEmailError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleOnChangeEmail = (e) => {
@@ -19,9 +20,9 @@ const Login = () => {
 
   const handleLoginWithEmail = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     if (email.length > 3 && email.includes("@" && ".")) {
       if (email) {
-
         // log in a user by their email
         try {
           const DiDToken = await magic.auth.loginWithMagicLink({ email });
@@ -31,16 +32,19 @@ const Login = () => {
             router.push("/");
           }
         } catch (error) {
+          setIsLoading(false);
           console.error("error logging in", error);
         }
-
+        setIsLoading(false);
         setShowEmailError("");
         console.log("EMAIL IS VALID and in DB - Route to dashboard");
       } else {
+        setIsLoading(false);
         setShowEmailError("Email not found");
       }
     } else {
       // show email error message
+      setIsLoading(false);
       console.log("EMAIL IS INVALID");
       setShowEmailError("Email address is invalid");
     }
@@ -73,24 +77,29 @@ const Login = () => {
         className="h-screen w-screen flex justify-center items-center"
       >
         <div className="p-12 bg-black bg-opacity-70 rounded flex flex-col">
-          <h1 className="text-3xl mb-8">Sign In</h1>
-          <div className="flex flex-col items-center">
-            <input
-              type="text"
-              className="p-2 rounded text-black mb-2"
-              placeholder="Email Address"
-              onChange={handleOnChangeEmail}
-            />
+          
+              <h1 className="text-3xl mb-8">Sign In | Register</h1>
+              <div className="flex flex-col items-center">
+              
+              {!isLoading && (
+                <input
+                  type="text"
+                  className="p-2 rounded text-black mb-2"
+                  placeholder="Email Address"
+                  onChange={handleOnChangeEmail}
+                />
+                )}
 
-            <small className="text-red20 mb-2">{showEmailError}</small>
-          </div>
+                <small className="text-red20 mb-2">{showEmailError}</small>
+              </div>
+          
           <motion.button
             onClick={handleLoginWithEmail}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 1.0 }}
             className="bg-red20 rounded p-2"
           >
-            Sign In
+            {isLoading ? "Loading..." : "Lets Go!"}
           </motion.button>
         </div>
       </main>
