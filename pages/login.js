@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { magic } from "../lib/magic-client";
 
-  const Login = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [showEmailError, setShowEmailError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -15,14 +15,13 @@ import { magic } from "../lib/magic-client";
     const handleComplete = () => {
       setIsLoading(false);
     };
-    router.events.on('routeChangeComplete', handleComplete);
-    router.events.on('routeChangeError', handleComplete);
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
 
     return () => {
-      router.events.off('routeChangeComplete', handleComplete);
-      router.events.off('routeChangeError', handleComplete);
-
-    }
+      router.events.off("routeChangeComplete", handleComplete);
+      router.events.off("routeChangeError", handleComplete);
+    };
   }, [router]);
 
   const handleOnChangeEmail = (e) => {
@@ -63,15 +62,12 @@ import { magic } from "../lib/magic-client";
     }
   };
 
-
   const handleKeyPress = (e) => {
-    if(e.key === 'Enter'){
-      console.log('hellllloo');
+    if (e.key === "Enter") {
+      console.log("hellllloo");
       handleLoginWithEmail(e);
     }
-  }
-
-  
+  };
 
   return (
     <>
@@ -100,23 +96,22 @@ import { magic } from "../lib/magic-client";
         className="h-screen w-screen flex justify-center items-center"
       >
         <div className="p-12 bg-black bg-opacity-70 rounded flex flex-col">
-          
-              <h1 className="text-3xl mb-8">Sign In | Register</h1>
-              <div className="flex flex-col items-center">
-              
-              {!isLoading && (
-                <input
-                  onKeyPress={handleKeyPress}
-                  type="text"
-                  className="p-2 rounded text-black mb-2"
-                  placeholder="Email Address"
-                  onChange={handleOnChangeEmail}
-                />
-                )}
+          <h1 className="text-3xl mb-8">Sign In | Register</h1>
+          <div className="flex flex-col items-center">
+            
+            {!isLoading && (
+              <input
+                onKeyPress={handleKeyPress}
+                type="text"
+                className="p-2 rounded text-black mb-2"
+                placeholder="Email Address"
+                onChange={handleOnChangeEmail}
+              />
+            )}
 
-                <small className="text-red20 mb-2">{showEmailError}</small>
-              </div>
-          
+            <small className="text-red20 mb-2">{showEmailError}</small>
+          </div>
+
           <motion.button
             onClick={handleLoginWithEmail}
             whileHover={{ scale: 1.05 }}
