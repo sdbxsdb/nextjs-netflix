@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { magic } from "../lib/magic-client";
 
-const Login = () => {
+  const Login = () => {
   const [email, setEmail] = useState("");
   const [showEmailError, setShowEmailError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -63,6 +63,16 @@ const Login = () => {
     }
   };
 
+
+  const handleKeyPress = (e) => {
+    if(e.key === 'Enter'){
+      console.log('hellllloo');
+      handleLoginWithEmail(e);
+    }
+  }
+
+  
+
   return (
     <>
       <Head>
@@ -96,6 +106,7 @@ const Login = () => {
               
               {!isLoading && (
                 <input
+                  onKeyPress={handleKeyPress}
                   type="text"
                   className="p-2 rounded text-black mb-2"
                   placeholder="Email Address"
