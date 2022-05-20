@@ -42,7 +42,7 @@ export default function Home({disneyVideos, comedyVideos, codingVideos, popularV
 
       <div className="mb-16">
         <Banner
-          videoId="MHPGeQD8TvI"
+          videoId="s0gdBeTqql8"
           title="A movie name"
           subtitle="A movie subtitle"
           imgUrl="/static/avengerslandscape.jpg"
