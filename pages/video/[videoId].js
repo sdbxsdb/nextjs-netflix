@@ -4,27 +4,55 @@ import styles from "../../styles/Video.module.css";
 import Image from "next/image";
 import clsx from "classnames";
 import { motion } from "framer-motion";
+import {getYoutubeVideoById} from '../../lib/videos';
 
 Modal.setAppElement("#__next");
 
-const Video = () => {
+export async function getStaticProps() {
+
+  // const video = {
+  //   title: "video title",
+  //   publishTime: "1990-01-01",
+  //   description: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fringilla velit in consectetur porta. Nullam eget orci ipsum. Nulla facilisi. Aliquam sed velit eget justo ornare fermentum a in massa. Nullam quis leo a erat placerat scelerisque vitae id quam. Quisque suscipit leo ipsum, eu porttitor nunc posuere a. Aliquam erat volutpat. Nullam interdum rhoncus pellentesque. Duis ac est fermentum odio consectetur.'`,
+  //   channelTitle: " channel title",
+  //   viewCount: 10000,
+  // };
+
+  const videoId = 'gim2kprjL50';
+  const videoArray = await getYoutubeVideoById(videoId);
+
+  console.log({videoArray});
+  return {
+    props: {
+      video: videoArray.length > 0 ? videoArray[0] : {}
+    },
+  
+    revalidate: 10, // In seconds
+  }
+}
+
+export async function getStaticPaths() {
+  const listOfVideos = ["gim2kprjL50", "_2jbO2GlXOo", "numzJtJWT8c"]
+
+  // Get the paths we want to pre-render based on posts
+  const paths = listOfVideos.map((videoId) => ({
+    params: { videoId },
+  }))
+
+  // We'll pre-render only these paths at build time.
+  // { fallback: blocking } will server-render pages
+  // on-demand if the path doesn't exist.
+  return { paths, fallback: 'blocking' }
+}
+
+const Video = ({video}) => {
   const router = useRouter();
 
   const handleCloseModal = () => {
     router.back();
   };
 
-  const video = {
-    title: "video title",
-    publishTime: "1990-01-01",
-    description: ` Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fringilla velit in consectetur porta. Nullam eget orci ipsum. Nulla facilisi. Aliquam sed velit eget justo ornare fermentum a in massa. Nullam quis leo a erat placerat scelerisque vitae id quam. Quisque suscipit leo ipsum, eu porttitor nunc posuere a. Aliquam erat volutpat. Nullam interdum rhoncus pellentesque. Duis ac est fermentum odio consectetur vehicula accumsan a tellus.
-
-    In eu elementum erat. Etiam non posuere est, a sagittis diam. Sed consequat magna libero, ut laoreet ante aliquam quis. Proin velit ligula, tempor at purus eu, tincidunt aliquam est. Pellentesque et tortor sagittis, sodales lacus et, viverra enim. Vivamus vitae facilisis neque, et rutrum ipsum. Morbi et vehicula enim. Duis id quam id massa fermentum consequat. Curabitur dictum condimentum leo ut pharetra. Praesent in nunc scelerisque, ornare leo at, semper mi. Ut suscipit maximus est. Nullam et tristique leo, quis aliquet magna. In hac habitasse platea dictumst. Nulla facilisi. Aliquam suscipit interdum odio non eleifend.
-    
-    Quisque fringilla elit eget risus rutrum tristique. Nunc ac dignissim purus. Praesent ultricies sapien eleifend odio sollicitudin, sit amet ornare magna vehicula. Praesent tristique ipsum lacus, vel vulputate lacus aliquam nec. Sed ut magna eu sapien aliquam ullamcorper sit amet non justo. Nunc massa velit, convallis non lorem ac, tempor viverra sapien. Nullam convallis, tortor id aliquam mattis, orci quam tincidunt augue, nec consectetur orci nunc vel ex. Quisque feugiat fringilla felis, sit amet vestibulum erat interdum rhoncus. Nullam varius sagittis tincidunt. Suspendisse potenti. Nam sagittis nulla elementum, viverra est non, dignissim sapien. Pellentesque ut massa id nibh condimentum cursus gravida vitae risus. Sed id ex eget orci suscipit dignissim. Vestibulum eget sodales risus, a auctor turpis.'video description lelorem ipsum lorem ipasdf lfdkdksfjllkjsdf'`,
-    channelTitle: " channel title",
-    viewCount: 10000,
-  };
+  
 
   const { title, description, channelTitle, viewCount, publishTime } = video;
 
@@ -62,7 +90,7 @@ const Video = () => {
         <div className="flex px-4 gap-x-4">
           <div className="w-2/3">
             <div className=" bg-black10 mt-4 w-full">
-              <p className="text-red20 text-2xl pb-2">{title}</p>
+              <p className="text-white10 text-2xl pb-4">{title}</p>
             </div>
             <div className="relative">
               <div className="overflow-y-scroll max-h-[400px]">
@@ -83,7 +111,7 @@ const Video = () => {
             </div>
             <div className="flex items-center justify-between gap-x-4">
               <p className="text-gray10 text-xs">View Count:</p>
-              <p>{viewCount}</p>
+              <p>{viewCount || 'No views yet'}</p>
             </div>
           </div>
         </div>
