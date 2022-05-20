@@ -1,12 +1,14 @@
 import React from "react";
-import styles from "./banner.module.css";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 const Banner = (props) => {
-  const { title, subtitle, imgUrl } = props;
+  const router = useRouter();
+  const { title, subtitle, imgUrl, videoId } = props;
   const handleOnPlay = () => {
     console.log("play");
+    router.push(`/video/${videoId}`);
   };
 
   return (

@@ -38,21 +38,11 @@ export default function Home({disneyVideos, comedyVideos, codingVideos, popularV
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-
-        {/* <div className="flex items-center justify-center h-screen w-screen animate-puse">
-          <Image
-              src={"/static/netflixLogo.svg"}
-              alt="Netflix logo"
-              width="300px"
-              height="100%"
-            />
-        </div> */}
-
-
       <NavBar/>
 
       <div className="mb-16">
         <Banner
+          videoId="MHPGeQD8TvI"
           title="A movie name"
           subtitle="A movie subtitle"
           imgUrl="/static/avengerslandscape.jpg"
