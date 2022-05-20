@@ -32,7 +32,8 @@ const Banner = (props) => {
 
           <div className="flex flex-row w-full">
             <motion.button
-              whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 1.0 }}
               className="flex items-center justify-center w-32 pt-2 pb-2 pl-5 pr-5 mt-5 text-black rounded-lg shadow-lg bg-white10"
               onClick={handleOnPlay}
             >
