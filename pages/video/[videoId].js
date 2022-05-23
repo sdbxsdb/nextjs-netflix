@@ -8,7 +8,7 @@ import {getYoutubeVideoById} from '../../lib/videos';
 
 Modal.setAppElement("#__next");
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
 
   // const video = {
   //   title: "video title",
@@ -18,7 +18,9 @@ export async function getStaticProps() {
   //   viewCount: 10000,
   // };
 
-  const videoId = 'gim2kprjL50';
+  console.log({context});
+
+  const videoId = context.params.videoId;
   const videoArray = await getYoutubeVideoById(videoId);
 
   console.log({videoArray});
