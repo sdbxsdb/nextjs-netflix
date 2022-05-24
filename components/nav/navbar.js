@@ -72,18 +72,22 @@ const NavBar = () => {
         </Link>
 
         <ul className="flex flex-row items-center w-6/12 ml-12 gap-x-8 text-base leading-5">
-          <li
+          <motion.li
             className="mr-3 text-base font-semibold cursor-pointer"
             onClick={handleOnClickHome}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 1.0 }}
           >
             Home
-          </li>
-          <li
+          </motion.li>
+          <motion.li
             className="cursor-pointer min-w-max"
             onClick={handleOnClickMyList}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 1.0 }}
           >
             My List
-          </li>
+          </motion.li>
           {/* <li>
             <input id='search-bar' type="search" className='rounded p-2 focus:outline-none text-black10' placeholder="Search"/>
           </li> */}
