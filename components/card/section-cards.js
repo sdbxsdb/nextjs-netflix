@@ -10,7 +10,7 @@ const SectionCards = (props) => {
       <h2 className="text-white10 font-semibold text-3xl px-12">{title}</h2>
       <div className="flex pb-12 pt-4 px-12 mr-3 overflow-x-scroll w-full overflow-y-hidden">
         {videos.map((video, index) => {
-          console.log({video})
+          // console.log({video})
           return (
             <Link key={index} href={`video/${video.id}`}>
               <a>
