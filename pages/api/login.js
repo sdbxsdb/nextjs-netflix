@@ -1,4 +1,5 @@
-import { magicAdmin } from '../../lib/magic';
+import { magicAdmin } from "../../lib/magic";
+import jwt from "jsonwebtoken";
 
 export default async function login(req, res) {
   if (req.method === "POST") {
@@ -10,6 +11,18 @@ export default async function login(req, res) {
       const metadata = await magicAdmin.users.getMetadataByToken(didToken);
       console.log({ metadata });
 
+      //create JWT token
+      const token = jwt.sign({
+        ...metadata,
+          iat: Math.floor(Date.now() / 1000),
+          exp: Math.floor(Date.now() / 1000 + 7 * 24 * 60 * 60),
+          "https://hasura.io/jwt/claims": {
+            "x-hasura-allowed-roles": ["user", "admin"],
+            "x-hasura-default-role": "user",
+            "x-hasura-user-id": `${metadata.issuer}`,
+        },
+      }, 'thisisasecretthisisasecret452343212342');
+      console.log({token});
 
       res.send({ done: true });
     } catch (error) {
@@ -19,6 +32,5 @@ export default async function login(req, res) {
     }
   } else {
     res.send({ done: false });
-
   }
 }
