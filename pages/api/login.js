@@ -10,7 +10,6 @@ export default async function login(req, res) {
 
       //invoke magic to get did token
       const metadata = await magicAdmin.users.getMetadataByToken(didToken);
-      console.log({ metadata });
 
       //create JWT token
       const token = jwt.sign({
@@ -22,11 +21,10 @@ export default async function login(req, res) {
             "x-hasura-default-role": "user", 
             "x-hasura-user-id": `${metadata.issuer}`,
         },
-      }, 'thisisasecretthisisasecret452343212342');
-      console.log({token});
+      }, process.env.JWT_SECRET);
 
       //CHECK IF USER EXISITS
-      const isNewUserQuery = await isNewUser(token);
+      const isNewUserQuery = await isNewUser(token, metadata.issuer);
 
       res.send({ done: true, isNewUserQuery });
     } catch (error) {
