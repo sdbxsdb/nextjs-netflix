@@ -14,7 +14,9 @@ const NavBar = () => {
   useEffect(() => {
     async function fetchMetaData() {
       try {
-        const { email } = await magic.user.getMetadata();
+        const { email, issuer } = await magic.user.getMetadata();
+        const didToken = await magic.user.getIdToken();
+        console.log({didToken});
         if (email) {
           setUsername(email);
         }
@@ -25,6 +27,8 @@ const NavBar = () => {
     }
     fetchMetaData();
   }, []);
+
+  
 
   const handleOnClickHome = (e) => {
     e.preventDefault();
