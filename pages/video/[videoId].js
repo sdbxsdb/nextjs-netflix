@@ -6,12 +6,13 @@ import clsx from "classnames";
 import { motion } from "framer-motion";
 import { getYoutubeVideoById } from "../../lib/videos";
 import NavBar from "../../components/nav/navbar";
+import DislikeIcon from "../../components/icons/dislikeIcon";
+import LikeIcon from "../../components/icons/likeIcon";
+import {useState} from 'react'
 
 Modal.setAppElement("#__next");
 
 export async function getStaticProps(context) {
-
-
   console.log({ context });
 
   const videoId = context.params.videoId;
@@ -44,17 +45,31 @@ export async function getStaticPaths() {
 const Video = ({ video }) => {
   const router = useRouter();
 
+  const [toggleLike, setToggleLike ]= useState(false);
+  const [toggleDislike, setToggleDislike ]= useState(false);
+
   const handleCloseModal = () => {
     router.back();
   };
 
   const { title, description, channelTitle, viewCount, publishTime } = video;
 
+  const handleToggleLike = () => {
+    console.log({toggleLike});
+    setToggleLike(!toggleLike);
+    setToggleDislike(false);
+  };
+
+  const handleToggleDislike = () => {
+    console.log({toggleDislike});
+    setToggleDislike(!toggleDislike);
+    setToggleLike(false);
+  };
+
   return (
     <>
       <NavBar />
       <div className="flex items-center">
-        
         <Modal
           isOpen={true}
           onRequestClose={handleCloseModal}
@@ -63,24 +78,24 @@ const Video = ({ video }) => {
           className={styles.modal}
         >
           <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 1.0 }}
-          onClick={handleCloseModal}
-          className="absolute -top-4 -right-4 cursor-pointer "
-        >
-          <Image
-            src={"/static/close.svg"}
-            alt="close"
-            width="30px"
-            height="30px"
-          />
-        </motion.div>
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 1.0 }}
+            onClick={handleCloseModal}
+            className="absolute -top-4 -right-4 cursor-pointer "
+          >
+            <Image
+              src={"/static/close.svg"}
+              alt="close"
+              width="30px"
+              height="30px"
+            />
+          </motion.div>
           <iframe
             id="ytplayer"
             type="text/html"
             width="100%"
             height="360"
-            className={styles.videoPlayer}
+            className=""
             src={`https://www.youtube.com/embed/${router.query.videoId}?autoplay=0&controls=1&showinfo=0&rel=1`}
             frameBorder="0"
           ></iframe>
@@ -98,13 +113,31 @@ const Video = ({ video }) => {
               </div>
             </div>
             <div className="mt-6 flex flex-col gap-y-4">
+              <div className="flex justify-around mb-4">
+                <motion.div 
+                  onClick={handleToggleLike}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 1.0 }}
+                  className="rounded-full p-2 border-2 border-white20 cursor-pointer "
+                >
+                  <LikeIcon selected={toggleLike}/>
+                </motion.div>
+                <motion.div
+                  onClick={handleToggleDislike}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 1.0 }}
+                  className="rounded-full p-2 border-2 border-white20 cursor-pointer "
+                >
+                  <DislikeIcon selected={toggleDislike}/>
+                </motion.div>
+              </div>
               <div className="flex items-center justify-between gap-x-4">
                 <p className="text-gray10 text-xs">Upload Date:</p>
-                <p>{publishTime}</p>
+                <p className="text-right">{publishTime}</p>
               </div>
               <div className="flex items-center justify-between gap-x-4">
                 <p className="text-gray10 text-xs">Channel:</p>
-                <p>{channelTitle}</p>
+                <p className="text-right">{channelTitle}</p>
               </div>
               <div className="flex items-center justify-between gap-x-4">
                 <p className="text-gray10 text-xs">View Count:</p>
