@@ -16,11 +16,11 @@ const NavBar = () => {
       try {
         const { email, issuer } = await magic.user.getMetadata();
         const didToken = await magic.user.getIdToken();
-        console.log({didToken});
+        // console.log({didToken});
         if (email) {
           setUsername(email);
         }
-        console.log({ email });
+        // console.log({ email });
       } catch (error) {
         console.error("Error getting user metadata", error);
       }

@@ -39,10 +39,25 @@ const Login = () => {
         try {
           setIsLoading(true);
           const DiDToken = await magic.auth.loginWithMagicLink({ email });
-          console.log({ DiDToken });
+          // console.log({ DiDToken });
           if (DiDToken) {
-            // route to dashboard
-            router.push("/");
+
+            const response = await fetch('/api/login', { 
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${DiDToken}`,
+                'Content-Type': 'application/json',
+              },
+            });
+
+            const loggedInResponse = await response.json();
+            if (loggedInResponse.done) {
+              console.log({loggedInResponse});
+              router.push("/");
+            } else {
+              setIsLoading(false);
+              setShowEmailError('Something went wrong logging in.  Please try again.');
+            }
           }
         } catch (error) {
           setIsLoading(false);
@@ -64,7 +79,6 @@ const Login = () => {
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      console.log("hellllloo");
       handleLoginWithEmail(e);
     }
   };
