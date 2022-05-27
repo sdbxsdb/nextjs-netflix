@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 export default function handler(req, res) {
-  res.status(200).json({ name: 'John Doe' })
+  res.status(200).json({ name: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZXIiOiJkaWQ6ZXRocjoweDA4N0UyNjcyQ0MxNzlkQzQyN0UyMzQyRUE1MGZiYUIyNjUzQzE5YjQiLCJwdWJsaWNBZGRyZXNzIjoiMHgwODdFMjY3MkNDMTc5ZEM0MjdFMjM0MkVBNTBmYmFCMjY1M0MxOWI0IiwiZW1haWwiOiJzYW1kb25hZ2h5YmVsbEBnbWFpbC5jb20iLCJvYXV0aFByb3ZpZGVyIjpudWxsLCJwaG9uZU51bWJlciI6bnVsbCwiaWF0IjoxNjUzNjU3NDk2LCJleHAiOjE2NTQyNjIyOTYsImh0dHBzOi8vaGFzdXJhLmlvL2p3dC9jbGFpbXMiOnsieC1oYXN1cmEtYWxsb3dlZC1yb2xlcyI6WyJ1c2VyIiwiYWRtaW4iXSwieC1oYXN1cmEtZGVmYXVsdC1yb2xlIjoidXNlciIsIngtaGFzdXJhLXVzZXItaWQiOiJkaWQ6ZXRocjoweDA4N0UyNjcyQ0MxNzlkQzQyN0UyMzQyRUE1MGZiYUIyNjUzQzE5YjQifX0.-H5A_cs7hxj33kesxxDos4dJ7lX-LZuBLYI1xNjI6os' })
 }
