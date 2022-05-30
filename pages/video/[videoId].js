@@ -44,9 +44,10 @@ export async function getStaticPaths() {
 
 const Video = ({ video }) => {
   const router = useRouter();
+  const videoId = router.query.videoId;
 
-  const [toggleLike, setToggleLike ]= useState(false);
-  const [toggleDislike, setToggleDislike ]= useState(false);
+  const [toggleLike, setToggleLike ] = useState(false);
+  const [toggleDislike, setToggleDislike ] = useState(false);
 
   const handleCloseModal = () => {
     router.back();
@@ -54,17 +55,48 @@ const Video = ({ video }) => {
 
   const { title, description, channelTitle, viewCount, publishTime } = video;
 
-  const handleToggleLike = () => {
+
+
+  const handleToggleLike = async () => {
     console.log({toggleLike});
-    setToggleLike(!toggleLike);
-    setToggleDislike(false);
+    const val = !toggleLike;
+    setToggleLike(val);
+    setToggleDislike(toggleLike);
+
+    const response = await fetch('/api/stats', {
+      method: 'POST',
+      body: JSON.stringify({ 
+        videoId,
+        favourited: val ? 1 : 0
+      }),
+      headers: { 'Content-Type': 'application/json'}
+    })
+    console.log('data', await response.json());
   };
 
-  const handleToggleDislike = () => {
+
+
+
+  const handleToggleDislike = async () => {
     console.log({toggleDislike});
-    setToggleDislike(!toggleDislike);
-    setToggleLike(false);
+    const val = !toggleDislike;
+    setToggleDislike(val);
+    setToggleLike(toggleDislike);
+
+    const response = await fetch('/api/stats', {
+      method: 'POST',
+      body: JSON.stringify({ 
+        videoId,
+        favourited: val ? 0 : 1
+      }),
+      headers: { 'Content-Type': 'application/json'}
+    })
+    console.log('data', await response.json());
+    
   };
+
+
+
 
   return (
     <>
@@ -96,7 +128,7 @@ const Video = ({ video }) => {
             width="100%"
             height="360"
             className=""
-            src={`https://www.youtube.com/embed/${router.query.videoId}?autoplay=0&controls=1&showinfo=0&rel=1`}
+            src={`https://www.youtube.com/embed/${videoId}?autoplay=0&controls=1&showinfo=0&rel=1`}
             frameBorder="0"
           ></iframe>
           <div className="flex md:flex-row w-full flex-col-reverse px-4 gap-x-4">
