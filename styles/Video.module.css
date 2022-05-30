@@ -74,7 +74,7 @@
 }
 
 .description {
-  padding-bottom: 40px;
+  padding: 40px 10px 0px;
   margin-bottom: 0.5rem /* 8px */;
   margin-top: 0.75rem /* 12px */;
 }

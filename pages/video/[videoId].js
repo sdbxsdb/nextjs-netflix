@@ -81,7 +81,7 @@ const Video = ({ video }) => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 1.0 }}
             onClick={handleCloseModal}
-            className="absolute -top-4 -right-4 cursor-pointer "
+            className="absolute -top-4 -right-4 cursor-pointer z-105"
           >
             <Image
               src={"/static/close.svg"}
@@ -99,7 +99,7 @@ const Video = ({ video }) => {
             src={`https://www.youtube.com/embed/${router.query.videoId}?autoplay=0&controls=1&showinfo=0&rel=1`}
             frameBorder="0"
           ></iframe>
-          <div className="flex md:flex-row flex-col-reverse px-4 gap-x-4">
+          <div className="flex md:flex-row w-full flex-col-reverse px-4 gap-x-4">
             <div className="w-full md:w-2/3">
               <div className=" bg-black10 mt-4 w-full">
                 <p className="text-white10 text-2xl pb-4">{title}</p>
