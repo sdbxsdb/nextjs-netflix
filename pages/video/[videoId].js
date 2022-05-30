@@ -8,7 +8,7 @@ import { getYoutubeVideoById } from "../../lib/videos";
 import NavBar from "../../components/nav/navbar";
 import DislikeIcon from "../../components/icons/dislikeIcon";
 import LikeIcon from "../../components/icons/likeIcon";
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 Modal.setAppElement("#__next");
 
@@ -52,9 +52,32 @@ const Video = ({ video }) => {
   const handleCloseModal = () => {
     router.back();
   };
-  
+
 
   const { title, description, channelTitle, viewCount, publishTime } = video;
+
+
+
+  useEffect(() => {
+    async function fetchVideoData() {
+      const response = await fetch(`/api/stats?videoId=${videoId}`, {
+        method: 'GET'
+      });
+      const data = await response.json();
+  
+      console.log({ data });
+      if (data.length > 0) {
+        const favourited = data[0].favourited;
+        if (favourited === 1) {
+          setToggleLike(true)
+        } else if (favourited === 0) {
+          setToggleDislike(true)
+        }
+      }
+    }
+    fetchVideoData();
+  }, []);
+
 
 
   const runRatingService = async (favourited) => {
