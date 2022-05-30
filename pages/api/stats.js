@@ -14,6 +14,7 @@ export default async function stats(req, res) {
     } else {
       const inputParams = req.method === 'POST' ? req.body : req.query
       const { videoId } = inputParams;
+      
 
       if (videoId) {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
@@ -52,6 +53,9 @@ export default async function stats(req, res) {
             res.send({ user: null, msg: "Video not found" });
           }
         }
+      } else {
+        res.status(400);
+        res.send({ user: null, msg: "VideoId not provided" });
       }
     }
   } catch (error) {
