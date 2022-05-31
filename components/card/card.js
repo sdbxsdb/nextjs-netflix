@@ -24,6 +24,7 @@ const Card = (props) => {
       
       <motion.div
         whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 1.0 }}
         className={cls("relative block hover:z-40 group", classMap[size])}
       >
         <div className='absolute flex items-end z-50 bg-gradient-to-t via-black/[0.3] from-black h-full w-full group-hover:opacity-0 transition-all duration-200 ease-in-out overflow-hidden p-2'>
