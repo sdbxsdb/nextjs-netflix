@@ -2,13 +2,18 @@ import Head from "next/head";
 import Banner from "../components/banner/banner";
 import NavBar from "../components/nav/navbar";
 import SectionCards from "../components/card/section-cards";
-import { getPopularVideos, getVideos } from "../lib/videos";
+import { getPopularVideos, getVideos, getWatchItAgainVideos } from "../lib/videos";
 
 export async function getServerSideProps() {
   const disneyVideos = await getVideos("disney trailer");
   const comedyVideos = await getVideos("comdey movies");
   const codingVideos = await getVideos("coding");
   const popularVideos = await getPopularVideos();
+
+  const userId = 'did:ethr:0xa15DeD6b55D136653be8cDAD7058E56BAe113065';
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZXIiOiJkaWQ6ZXRocjoweGExNURlRDZiNTVEMTM2NjUzYmU4Y0RBRDcwNThFNTZCQWUxMTMwNjUiLCJwdWJsaWNBZGRyZXNzIjoiMHhhMTVEZUQ2YjU1RDEzNjY1M2JlOGNEQUQ3MDU4RTU2QkFlMTEzMDY1IiwiZW1haWwiOiJzYW1AY2luZW1lZGlhLmllIiwib2F1dGhQcm92aWRlciI6bnVsbCwicGhvbmVOdW1iZXIiOm51bGwsImlhdCI6MTY1MzY1OTIyNCwiZXhwIjoxNjU0MjY0MDI0LCJodHRwczovL2hhc3VyYS5pby9qd3QvY2xhaW1zIjp7IngtaGFzdXJhLWFsbG93ZWQtcm9sZXMiOlsidXNlciIsImFkbWluIl0sIngtaGFzdXJhLWRlZmF1bHQtcm9sZSI6InVzZXIiLCJ4LWhhc3VyYS11c2VyLWlkIjoiZGlkOmV0aHI6MHhhMTVEZUQ2YjU1RDEzNjY1M2JlOGNEQUQ3MDU4RTU2QkFlMTEzMDY1In19.ipjpyZXsYVRHaI41zg8_5fLypB9IJ8KqrBF_WV9sWrc';
+  const watchItAgainVideos = await getWatchItAgainVideos(userId, token);
+  console.log({watchItAgainVideos});
 
   return {
     props: JSON.parse(
