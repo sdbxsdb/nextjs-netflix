@@ -22,6 +22,7 @@ export async function getServerSideProps() {
         comedyVideos,
         codingVideos,
         popularVideos,
+        watchItAgainVideos
       })
     ),
   };
@@ -32,6 +33,7 @@ export default function Home({
   comedyVideos,
   codingVideos,
   popularVideos,
+  watchItAgainVideos
 }) {
 
 
@@ -55,6 +57,7 @@ export default function Home({
       </div>
 
       <SectionCards title="Disney" videos={disneyVideos} size="portrait" />
+      <SectionCards title="Watch it again" videos={watchItAgainVideos} size="landscape" />
       <SectionCards title="Comedy" videos={comedyVideos} size="landscape" />
       <SectionCards title="Learning" videos={codingVideos} size="square" />
       <SectionCards title="Popular" videos={popularVideos} size="landscape" />
