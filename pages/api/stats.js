@@ -7,7 +7,9 @@ import { verifyToken } from '../../lib/utils';
 
 export default async function stats(req, res) {
   try {
-    const token = req.cookies.Token;
+    const token = req.cookies.token;
+    console.log('REQ - ', req.cookies);
+    console.log('TOKEN - ', token);
 
     if (!token) {
       res.status(403).send({});
@@ -15,12 +17,17 @@ export default async function stats(req, res) {
       const inputParams = req.method === 'POST' ? req.body : req.query
       const { videoId } = inputParams;
       
+      console.log('TOKEN- ', token);
+      console.log('VIDEO ID- ',videoId);
+
 
       if (videoId) {
-        const userId = verifyToken(token);
+        const userId = await verifyToken(token);
         const findVideo = await findVideoIdByUser(token, userId, videoId);
-
         const doesStatsExist = findVideo?.length > 0;
+
+        console.log('USER ID -', userId);
+
 
         if (req.method === "POST") {
           const { favourited, watched = true } = req.body;
