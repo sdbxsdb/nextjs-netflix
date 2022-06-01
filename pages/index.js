@@ -2,20 +2,33 @@ import Head from "next/head";
 import Banner from "../components/banner/banner";
 import NavBar from "../components/nav/navbar";
 import SectionCards from "../components/card/section-cards";
-import { getPopularVideos, getVideos, getWatchItAgainVideos } from "../lib/videos";
+import {
+  getPopularVideos,
+  getVideos,
+  getWatchItAgainVideos,
+} from "../lib/videos";
+import redirectUser from "../utils/redirectUser";
 
 export async function getServerSideProps(context) {
+  const { userId, token } = await redirectUser(context);
+
+  if (!userId) {
+    return {
+      props: {},
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      }
+    }
+  }
+
+  const watchItAgainVideos = await getWatchItAgainVideos(userId, token);
+
   const disneyVideos = await getVideos("disney trailer");
   const comedyVideos = await getVideos("comdey movies");
   const codingVideos = await getVideos("coding");
   const popularVideos = await getPopularVideos();
 
-  const token = context.req ? context?.cookies.Token : null;
-  const userId = 'did:ethr:0xa15DeD6b55D136653be8cDAD7058E56BAe113065';
- 
-
-  const watchItAgainVideos = await getWatchItAgainVideos(userId, token);
-  // console.log({watchItAgainVideos});
 
   return {
     props: JSON.parse(
@@ -24,7 +37,7 @@ export async function getServerSideProps(context) {
         comedyVideos,
         codingVideos,
         popularVideos,
-        watchItAgainVideos
+        watchItAgainVideos,
       })
     ),
   };
@@ -35,7 +48,7 @@ export default function Home({
   comedyVideos,
   codingVideos,
   popularVideos,
-  watchItAgainVideos
+  watchItAgainVideos = [],
 }) {
 
 
@@ -59,7 +72,11 @@ export default function Home({
       </div>
 
       <SectionCards title="Disney" videos={disneyVideos} size="portrait" />
-      <SectionCards title="Watch it again" videos={watchItAgainVideos} size="landscape" />
+      <SectionCards
+        title="Watch it again"
+        videos={watchItAgainVideos}
+        size="landscape"
+      />
       <SectionCards title="Comedy" videos={comedyVideos} size="landscape" />
       <SectionCards title="Learning" videos={codingVideos} size="square" />
       <SectionCards title="Popular" videos={popularVideos} size="landscape" />

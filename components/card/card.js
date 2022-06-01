@@ -23,7 +23,7 @@ const Card = (props) => {
     <div className="mr-4 cursor-pointer relative">
       
       <motion.div
-        whileHover={{ scale: 1.1 }}
+        whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 1.0 }}
         className={cls("relative block hover:z-40 group", classMap[size])}
       >
