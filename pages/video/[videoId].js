@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import Modal from "react-modal";
 import styles from "../../styles/Video.module.css";
 import Image from "next/image";
-import clsx from "classnames";
 import { motion } from "framer-motion";
 import { getYoutubeVideoById } from "../../lib/videos";
 import NavBar from "../../components/nav/navbar";
@@ -13,12 +12,11 @@ import {useState, useEffect} from 'react'
 Modal.setAppElement("#__next");
 
 export async function getStaticProps(context) {
-  console.log({ context });
+  // console.log({ context });
 
   const videoId = context.params.videoId;
   const videoArray = await getYoutubeVideoById(videoId);
 
-  console.log({ videoArray });
   return {
     props: {
       video: videoArray.length > 0 ? videoArray[0] : {},
@@ -65,7 +63,7 @@ const Video = ({ video }) => {
       });
       const data = await response.json();
   
-      console.log({ data });
+      // console.log({ data });
       if (data.length > 0) {
         const favourited = data[0].favourited;
         if (favourited === 1) {
@@ -94,21 +92,17 @@ const Video = ({ video }) => {
 
 
   const handleToggleLike = async () => {
-    console.log({toggleLike});
     const val = !toggleLike;
     setToggleLike(val);
     setToggleDislike(toggleLike);
 
     const favourited = val ? 1 : 0;
     const response = await runRatingService(favourited);
-
-    console.log('data', await response.json());
   };
 
 
 
   const handleToggleDislike = async () => {
-    console.log({toggleDislike});
     const val = !toggleDislike;
     setToggleDislike(val);
     setToggleLike(toggleDislike);

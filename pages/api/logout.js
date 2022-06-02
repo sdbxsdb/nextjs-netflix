@@ -3,7 +3,6 @@ import { removeTokenCookie } from "../../lib/cookies";
 import { verifyToken } from "../../lib/utils";
 
 export default async function logout(req, res) {
-  console.log("trying to log out");
   try {
     if (!req.cookies.token)
       return res

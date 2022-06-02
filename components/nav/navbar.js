@@ -62,7 +62,7 @@ const NavBar = () => {
       });
 
       const res = await response.json();
-      console.log(res, didToken);
+      // console.log(res, didToken);
     } catch (error) {
       console.error("Error logging out", error);
       router.push("/login");

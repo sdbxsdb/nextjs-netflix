@@ -52,7 +52,7 @@ const Login = () => {
 
             const loggedInResponse = await response.json();
             if (loggedInResponse.done) {
-              console.log({loggedInResponse});
+              // console.log({loggedInResponse});
               router.push("/");
             } else {
               setIsLoading(false);
@@ -64,7 +64,7 @@ const Login = () => {
           console.error("error logging in", error);
         }
         setShowEmailError("");
-        console.log("EMAIL IS VALID and in DB - Route to dashboard");
+        // console.log("EMAIL IS VALID and in DB - Route to dashboard");
       } else {
         setIsLoading(false);
         setShowEmailError("Email not found");
@@ -72,7 +72,7 @@ const Login = () => {
     } else {
       // show email error message
       setIsLoading(false);
-      console.log("EMAIL IS INVALID");
+      // console.log("EMAIL IS INVALID");
       setShowEmailError("Email address is invalid");
     }
   };
