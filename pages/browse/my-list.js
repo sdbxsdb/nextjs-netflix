@@ -1,5 +1,5 @@
 import NavBar from "../../components/nav/navbar";
-import Head from 'next/head';
+import Head from "next/head";
 import SectionCards from "../../components/card/section-cards";
 import redirectUser from "../../utils/redirectUser";
 import { getMyList } from "../../lib/videos";
@@ -17,22 +17,25 @@ export async function getServerSideProps(context) {
   };
 }
 
-
-
 const MyList = ({ myListVideos }) => {
   return (
     <>
-    <Head>
-      <title>My List</title>
-    </Head>
-    <main>
-      <NavBar/>
-      <div className="mt-20">
-        <SectionCards title='My List' videos={myListVideos} size='landscape'/>
-      </div>
-    </main>
+      <Head>
+        <title>My List</title>
+      </Head>
+      <main>
+        <NavBar />
+        <div className="mt-28">
+          <SectionCards
+            title="My List"
+            videos={myListVideos}
+            size="landscape"
+            shouldWrap
+          />
+        </div>
+      </main>
     </>
-  )
-}
+  );
+};
 
 export default MyList;
