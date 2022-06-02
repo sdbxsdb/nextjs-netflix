@@ -38,14 +38,14 @@ const Login = () => {
         // log in a user by their email
         try {
           setIsLoading(true);
-          const DiDToken = await magic.auth.loginWithMagicLink({ email });
-          // console.log({ DiDToken });
-          if (DiDToken) {
+          const didToken = await magic.auth.loginWithMagicLink({ email });
+          // console.log({ didToken });
+          if (didToken) {
 
             const response = await fetch('/api/login', { 
               method: 'POST',
               headers: {
-                'Authorization': `Bearer ${DiDToken}`,
+                'Authorization': `Bearer ${didToken}`,
                 'Content-Type': 'application/json',
               },
             });

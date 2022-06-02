@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 const NavBar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [username, setUsername] = useState("...");
+  const [didToken, setDidToken] = useState('');
   const router = useRouter();
 
   useEffect(() => {
@@ -19,6 +20,7 @@ const NavBar = () => {
         // console.log({didToken});
         if (email) {
           setUsername(email);
+          setDidToken(didToken);
         }
         // console.log({ email });
       } catch (error) {
@@ -27,8 +29,6 @@ const NavBar = () => {
     }
     fetchMetaData();
   }, []);
-
-  
 
   const handleOnClickHome = (e) => {
     e.preventDefault();
@@ -53,11 +53,19 @@ const NavBar = () => {
   const handleSignout = async (e) => {
     e.preventDefault();
     try {
-      await magic.user.logout();
-      router.push("/login");
-      // console.log(await magic.user.isLoggedIn()); // => `false`
+      const response = await fetch("/api/logout", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${didToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      const res = await response.json();
+      console.log(res, didToken);
     } catch (error) {
-      console.log("error logging out", error);
+      console.error("Error logging out", error);
+      router.push("/login");
     }
   };
 
@@ -114,7 +122,6 @@ const NavBar = () => {
 
             {showDropdown && (
               <div className="relative">
-                <Link href="/login">
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 1.0 }}
@@ -123,7 +130,6 @@ const NavBar = () => {
                   >
                     Sign Out
                   </motion.div>
-                </Link>
                 <div
                   className="w-screen h-screen left-0 top-[100px] fixed "
                   onClick={handleCloseDropdownOnWindowClick}
