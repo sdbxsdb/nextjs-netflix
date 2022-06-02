@@ -8,17 +8,17 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchMetaData() {
-      const isLoggedIn = await magic.user.isLoggedIn();
-      if (isLoggedIn) {
-        router.push("/");
-      } else {
-        router.push("/login");
-      }
-    }
-    fetchMetaData();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchMetaData() {
+  //     const isLoggedIn = await magic.user.isLoggedIn();
+  //     if (isLoggedIn) {
+  //       router.push("/");
+  //     } else {
+  //       router.push("/login");
+  //     }
+  //   }
+  //   fetchMetaData();
+  // }, []);
 
 
   useEffect(() => {
