@@ -16,10 +16,10 @@ export async function getServerSideProps(context) {
     return {
       props: {},
       redirect: {
-        destination: '/login',
+        destination: "/login",
         permanent: false,
-      }
-    }
+      },
+    };
   }
 
   const watchItAgainVideos = await getWatchItAgainVideos(userId, token);
@@ -28,7 +28,6 @@ export async function getServerSideProps(context) {
   const comedyVideos = await getVideos("comdey movies");
   const codingVideos = await getVideos("coding");
   const popularVideos = await getPopularVideos();
-
 
   return {
     props: JSON.parse(
@@ -50,8 +49,6 @@ export default function Home({
   popularVideos,
   watchItAgainVideos = [],
 }) {
-
-
   return (
     <div>
       <Head>
@@ -65,8 +62,8 @@ export default function Home({
       <div className="mb-16">
         <Banner
           videoId="TcMBFSGVi1c"
-          title="A movie name"
-          subtitle="A movie subtitle"
+          title="Avengers Endgame"
+          subtitle="Marvel Studios"
           imgUrl="/static/avengerslandscape.jpg"
         />
       </div>

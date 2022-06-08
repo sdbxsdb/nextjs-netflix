@@ -20,7 +20,8 @@
   height: 85%;
   margin: 0 auto;
   padding: 20px;
-  width: 70vw!important;
+  overflow: visible;
+  width: 70vw !important;
   bottom: 40px;
   background-color: var(--black10);
 
@@ -35,8 +36,6 @@
   right: 0;
   bottom: 0;
 }
-
-
 
 /** Makes video edges curvy **/
 .videoPlayer {

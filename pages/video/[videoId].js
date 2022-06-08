@@ -7,7 +7,7 @@ import { getYoutubeVideoById } from "../../lib/videos";
 import NavBar from "../../components/nav/navbar";
 import DislikeIcon from "../../components/icons/dislikeIcon";
 import LikeIcon from "../../components/icons/likeIcon";
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from "react";
 
 Modal.setAppElement("#__next");
 
@@ -44,52 +44,45 @@ const Video = ({ video }) => {
   const router = useRouter();
   const videoId = router.query.videoId;
 
-  const [toggleLike, setToggleLike ] = useState(false);
-  const [toggleDislike, setToggleDislike ] = useState(false);
+  const [toggleLike, setToggleLike] = useState(false);
+  const [toggleDislike, setToggleDislike] = useState(false);
 
   const handleCloseModal = () => {
     router.back();
   };
 
-
   const { title, description, channelTitle, viewCount, publishTime } = video;
-
-
 
   useEffect(() => {
     async function fetchVideoData() {
       const response = await fetch(`/api/stats?videoId=${videoId}`, {
-        method: 'GET'
+        method: "GET",
       });
       const data = await response.json();
-  
+
       // console.log({ data });
       if (data.length > 0) {
         const favourited = data[0].favourited;
         if (favourited === 1) {
-          setToggleLike(true)
+          setToggleLike(true);
         } else if (favourited === 0) {
-          setToggleDislike(true)
+          setToggleDislike(true);
         }
       }
     }
     fetchVideoData();
   }, []);
 
-
-
   const runRatingService = async (favourited) => {
-    return await fetch('/api/stats', {
-      method: 'POST',
-      body: JSON.stringify({ 
+    return await fetch("/api/stats", {
+      method: "POST",
+      body: JSON.stringify({
         videoId,
-        favourited
+        favourited,
       }),
-      headers: { 'Content-Type': 'application/json'}
-    })
-  }
-
-
+      headers: { "Content-Type": "application/json" },
+    });
+  };
 
   const handleToggleLike = async () => {
     const val = !toggleLike;
@@ -100,8 +93,6 @@ const Video = ({ video }) => {
     const response = await runRatingService(favourited);
   };
 
-
-
   const handleToggleDislike = async () => {
     const val = !toggleDislike;
     setToggleDislike(val);
@@ -111,11 +102,7 @@ const Video = ({ video }) => {
     const response = await runRatingService(favourited);
 
     // console.log('data', await response.json());
-    
   };
-
-
-
 
   return (
     <>
@@ -132,7 +119,7 @@ const Video = ({ video }) => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 1.0 }}
             onClick={handleCloseModal}
-            className="absolute -top-4 -right-4 cursor-pointer z-105"
+            className="absolute top-0 -right-0 cursor-pointer z-200 "
           >
             <Image
               src={"/static/close.svg"}
@@ -165,13 +152,13 @@ const Video = ({ video }) => {
             </div>
             <div className="mt-6 flex flex-col gap-y-4">
               <div className="flex justify-around mb-4">
-                <motion.div 
+                <motion.div
                   onClick={handleToggleLike}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 1.0 }}
                   className="rounded-full p-2 border-2 border-white20 cursor-pointer "
                 >
-                  <LikeIcon selected={toggleLike}/>
+                  <LikeIcon selected={toggleLike} />
                 </motion.div>
                 <motion.div
                   onClick={handleToggleDislike}
@@ -179,7 +166,7 @@ const Video = ({ video }) => {
                   whileTap={{ scale: 1.0 }}
                   className="rounded-full p-2 border-2 border-white20 cursor-pointer "
                 >
-                  <DislikeIcon selected={toggleDislike}/>
+                  <DislikeIcon selected={toggleDislike} />
                 </motion.div>
               </div>
               <div className="flex items-center justify-between gap-x-4">
